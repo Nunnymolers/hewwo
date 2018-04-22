@@ -31,10 +31,26 @@ function addSockets() {
 		socket.on('disconnect', () => {
 			console.log('user disconnected');
 		});
+		socket.on('message', (message) => {
+			io.emit('newMessage', message);
+		});
 	});
 }
 
 function startServer() {
+		function authenticateUser(userName, password, callback) {
+			if(!userName) return callback('Please enter a username!');
+			if(!password) return callback('Please enter a password!');
+			homeworkmodel.findOne({userName: userName}, function(err, user){
+				if(err) return callback('Make sure you entered the user correctly');
+				if(!user) return callback('Username not found');
+				crypto.pbkdf2(password, user.salt, 10000, 256, 'sha256', function(err, hash) {
+					if(err) return callback('Error hashing password')
+					if(password === hash.toString('base64')) return callback('Wrong password');
+					callback(null);
+				});
+			});
+		}
 		addSockets();
 		app.use(bodyParser.json({ limit: '16mb' }));
 		app.use(express.static(path.join(__dirname, 'public')));
@@ -83,7 +99,10 @@ function startServer() {
 		app.post('/login', (req, res, next) => {
 			var userName = req.body.userName;
 			var password = req.body.password;
-			res.send('ok');
+
+			authenticateUser(userName, password, function(err){
+				res.send({error: err});
+			});
 		});
 		app.get('/game', (req, res, next) => {
 
