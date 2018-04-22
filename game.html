@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Oxygen+Mono" rel="stylesheet">
+		<title>GAME</title>
+    <style>
+      *{
+        margin:0;
+        padding:0;
+      }
+      body {
+				overflow: hidden;
+        font-family: 'Oxygen Mono', monospace;
+        color:white;
+			}
+			canvas {
+				background: url('http://nether.space/capture/load/EqXcg6_o-9XvHI2pHAz4YIbW.jpeg') no-repeat center center fixed;
+				background-size: 100vw 100vh;
+			}
+
+			#chat input {
+				position:absolute;
+				margin: 0 40vw;
+				bottom:1.5vh;
+				width:20vw;
+				font-size:1.5vmax;
+				padding:0.5vmax;
+				color:white;
+				background-color:transparent;
+        border: none;
+        border-bottom: solid 3px white;
+			}
+
+      #chat input:focus{
+        outline:none !important;
+      }
+    </style>
+	</head>
+	<body>
+    <canvas></canvas>
+    <div id='chat'>
+			<ul></ul>
+			<div>
+				<input type='text'>
+			</div>
+		</div>
+    <script src='/js/socket.io.js'></script>
+		<script>
+      var socket = io();
+			var $canvas = document.querySelector('canvas');
+			$canvas.width = window.screen.width;
+			$canvas.height = window.screen.height;
+		</script>
+	</body>
+</html>

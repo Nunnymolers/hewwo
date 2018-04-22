@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Gugi|Montserrat" rel="stylesheet">
+    <title>LOGIN</title>
+    <style>
+      body{
+        background-image: url('https://images.unsplash.com/photo-1503924087716-07cbd5f49b21?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ae2465fb279b74417ab927c729f7da02&auto=format&fit=crop&w=1400&q=80');
+        background-color: gray;
+        text-align:center;
+        overflow:hidden;
+      }
+      #box{
+        background-color: white;
+        border-radius: 10px;
+        padding:1em;
+        margin:15% 50vh;
+        margin-top:0;
+      }
+      #titlebox{
+        font-family: 'Gugi', cursive;
+        border-bottom: solid 1px orange;
+        text-align:left;
+      }
+
+      #email, #password{
+        padding:1em;
+        font-family: 'Montserrat', sans-serif;
+        outline:none;
+        display:block;
+        margin: 5vh 0;
+        border:none;
+        border-bottom:solid 1px gray;
+        width:90%;
+        margin-right:5vh;
+        font-size:1em;
+      }
+
+      input:focus{
+        border-bottom-color:blue !important;
+      }
+
+      img{
+        height:80px;
+        width:80px;
+        border-radius:50%;
+        margin:0;
+        margin-top:10vw;
+        margin-bottom:2vh;
+      }
+
+      button{
+        background-color:orange;
+        color:white;
+        border-radius: 10px;
+        font-family: 'Gugi', cursive;
+        font-size:1em;
+        border:none;
+      }
+
+      button:hover{
+        background-color:#EE7600;
+        cursor:pointer;
+      }
+
+      button:focus{
+        outline:none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='logo'>
+      <img src='http://nether.space/capture/load/iBRlJRBC-LZVZiqLNsjjgttF.png' />
+    </div>
+    <div id='box'>
+      <div id='titlebox'>
+        LOGIN
+      </div>
+      <div id='enterfields'>
+        <input type='text' placeholder='email' id='email' name='userName' />
+        <input type='password' placeholder='password' id='password' name='password' />
+      </div>
+      <div id='button'>
+        <button id='submit'>SUBMIT</button>
+      </div>
+    </div>
+    <script>function grabData() {
+          // Getting all the input tags
+          var $inputs = document.querySelectorAll('input');
+          // Defining a variable to store all the data
+          var data = {};
+          // Looping through all the input tags
+          for(var i = 0; i < $inputs.length; i++) {
+              // Getting the ith input tag
+              var $input = $inputs[i];
+              // Getting the name of the data that the input tag holds
+              var name = $input.name;
+              // Getting the value that the user entered into the input tag
+              var value = $input.value;
+              // Storing the value and its name
+              data[name] = value
+          }
+          // Outputting the data
+          return data
+        }
+function sendData(data) {
+	// Creating a new request to the server that contains the data
+	var req = new XMLHttpRequest();
+	// Opening up a connection with the server to 'POST' data
+	req.open('POST', '/login', true);
+	// Explain to the server that we are sending the data in json format
+	req.setRequestHeader('content-type', 'application/json');
+	// Explain to the server that we are sending the data in json format
+	// Alert the user to any errors from the server
+	function readyStateChange() {
+		if(req.readyState !== 4) return;
+		if(req.status !== 200) return;
+		data = JSON.parse(req.responseText);
+		if(data.error) {
+			return alert(data.error);
+		}
+		//window.location.href = '/game';
+	}
+	req.onreadystatechange = readyStateChange;
+	// Sending the data in JSON format
+	req.send(JSON.stringify(data));
+}
+        function submit() {
+          var formData = grabData();
+          sendData(formData);
+        }
+        var $button = document.querySelector('button')
+        $button.addEventListener('click', submit)
+        </script>
+  </body>
+</html>

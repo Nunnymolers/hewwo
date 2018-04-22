@@ -5,34 +5,19 @@
 	</head>
 	<body>
 		<div>
-			<label>Username</label>
+			<label>username</label>
 			<br>
 			<input type='text' name='userName'>
-			<label> >:O or >:)</label>
-			<br>
-			<input type='radio' name='not' answer='yes'><label>>:O</label>
-			<br>
-			<input type='radio' name='not' answer='no'><label>>:)</label>
 		</div>
 		<div>
-			<label> >:? </label>
-			<br>
-			<input type="checkbox" name="shocked"><label> highlighter </label>
-			<br>
-			<input type="checkbox" name="angrymeh"><label> hilighter </label>
-			<br>
-			<input type="checkbox" name="shouty"><label> highliter </label>
-			<br>
-			<div>
-				<label>Password</label>
-				<input type='password' name='password'>
-			</div>
-			<div>
-				<label>Verify Password</label>
-				<input type='password' name='verifyPassword'>
-			</div>
-			<button>SUBMIT</button>
+			<label>password</label>
+			<input type='password' name='password'>
 		</div>
+		<div>
+			<label>verify password</label>
+			<input type='password' name='verifyPassword'>
+		</div>
+		<button>submit</button>
 		<script>
 			var $inputs = document.querySelectorAll('input');
 			var $button = document.querySelector('button');
@@ -54,14 +39,10 @@
 						var $input = $inputs[i];
 						if($input.type === 'text' || $input.type === 'password') {
 							data[$input.name] =  $input.value;
-						} else if($input.type === 'checkbox') {
-							data[$input.name] =  $input.checked;
-						} else if ($input.type === 'radio' && $input.checked) {
-							data[$input.name] = $input.getAttribute('answer');
-						}
 					}
 				sendData(data);
 			}
+		}
 
 			function sendData(data){
 
@@ -69,7 +50,7 @@
 					return;
 				}
 				var req = new XMLHttpRequest();
-				req.open('POST', '/form', true);
+				req.open('POST', '/hmwkuser1', true);
 				req.setRequestHeader('content-type', 'application/json');
 				function readyStateChange() {
 					if(req.readyState !== 4) return;
@@ -83,7 +64,6 @@
 				req.onreadystatechange = readyStateChange;
 				req.send(JSON.stringify(data));
 			}
-
 			$button.addEventListener('click', storeData);
 		</script>
 	</body>
