@@ -96,6 +96,15 @@ function startServer() {
 			res.sendFile(filePath);
 		});
 
+		app.get('/', (req, res, next) => {
+
+			/* Get the absolute path of the html file */
+			var filePath = path.join(__dirname, './login.html')
+
+			/* Sends the html file back to the browser */
+			res.sendFile(filePath);
+		});
+
 		app.post('/login', (req, res, next) => {
 			var userName = req.body.userName;
 			var password = req.body.password;
