@@ -34,6 +34,12 @@
       #chat input:focus{
         outline:none !important;
       }
+
+			#logout{
+				position:absolute;
+				top:1em;
+				right: 1em;
+			}
     </style>
 	</head>
 	<body>
@@ -43,6 +49,9 @@
 			<div>
 				<input type='text'>
 			</div>
+		</div>
+		<div id='logout'>
+			<a href='/logout'>Log Out</a>
 		</div>
     <script src='/js/socket.io.js'></script>
 		<script>
